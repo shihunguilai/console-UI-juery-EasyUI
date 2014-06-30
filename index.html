@@ -1,0 +1,123 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>console managent</title>
+
+<link rel="stylesheet" type="text/css" href="jquery-easyui-1.3.6/themes/default/easyui.css">   
+<link rel="stylesheet" type="text/css" href="jquery-easyui-1.3.6/themes/icon.css">   
+<script type="text/javascript" src="jquery-1.7.2.min.js"></script>   
+<script type="text/javascript" src="jquery-easyui-1.3.6/jquery.easyui.min.js"></script>  
+<script type="text/javascript" src="jquery-easyui-1.3.6/locale/easyui-lang-zh_CN.js"></script> 
+
+<script type="text/javascript">
+		$(function () {
+	        $('body').append('<div id="myWindow" class="easyui-dialog" closed="true"></div>');
+	     });
+		//common open window method
+	     function showMyWindow(title, href, width, height, modal, minimizable, maximizable) {
+	         $('#myWindow').window({
+	             title: title,
+	            width: width === undefined ? 600 : width,
+	            height: height === undefined ? 400 : height,
+	            content: '<iframe scrolling="yes" frameborder="0"  src="' + href + '" style="width:100%;height:98%;"></iframe>',
+	            //        href: href === undefined ? null : href,
+	           modal: modal === undefined ? true : modal,
+	           minimizable: minimizable === undefined ? false : minimizable,
+	            maximizable: maximizable === undefined ? false : maximizable,
+	            shadow: false,
+	            cache: false,
+	           closed: false,
+	            collapsible: false,
+	            resizable: false,
+	            loadingMessage: 'loading,please waite......'
+	        });
+	    }
+		
+	   //common close window method
+	     function closeMyWindow() {
+	    	        $('#myWindow').window('close');
+	    	    }
+	     
+	     
+</script> 
+
+
+<script type="text/javascript">
+
+$(function(){
+	//click menu method
+	$(".cd").click(function(event){
+		var tabTitle = $(this).html();
+		var url = $(this).attr("href");
+		addTab(tabTitle, url);
+		event.preventDefault();  
+	});
+	
+	// add tab method
+	function addTab(subtitle, url) {
+		               if (!$('#tabs').tabs('exists', subtitle)) {
+		                   $('#tabs').tabs('add', {
+		                       title: subtitle,
+		                       content: createFrame(url),
+		                       closable: true,
+		                       width: $('#mainPanle').width() - 10,
+		                       height: $('#mainPanle').height() - 26
+		                   });
+		               } else {
+		                   $('#tabs').tabs('select', subtitle);
+		              }
+	}
+	
+	//
+	 function createFrame(url) {
+         var s = '<iframe name="mainFrame" scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;background:#eee;"></iframe>';
+         return s;
+     }
+	
+});
+
+</script>
+<style>
+.cd{}
+</style>
+</head>
+
+
+<body class="easyui-layout">   
+   <!--  <div data-options="region:'north',title:'',split:false,collapsible:false" style="height:100px;">
+    </div>   --> 
+    
+   <div data-options="region:'west',title:'nav menu',split:true" style="width:200px;">
+   		<div  class="easyui-accordion">
+   		<div title="com menu" style="overflow:auto;padding:10px;">
+   				<p>
+		   		<a style="width:100%;"  href="http://www.baidu.com" class="easyui-linkbutton cd" data-options="iconCls:'icon-reload'">baidu</a>
+		   		<p>
+		   		<a style="width:100%;"  href="http://www.sina.com" class="easyui-linkbutton cd" data-options="iconCls:'icon-save'">sina</a>
+   		</div>
+   		
+   		<div title="other menu" style="overflow:auto;padding:10px;">
+   				<a style="width:100%;"  href="http://www.qq.com" class="easyui-linkbutton cd" data-options="iconCls:'icon-save'">qq</a>
+		   		<p>
+		   		<a style="width:100%;"  href="http://mi.com" class="easyui-linkbutton cd" data-options="iconCls:'icon-save'">mi</a>
+		   		<p>
+   		</div>
+   		
+   		
+   		
+   		</div>
+   </div>   
+   
+    <div id="mainPanle" data-options="region:'center'" style="padding:5px;background:#eee;">
+    	 <div id="tabs" class="easyui-tabs" fit="true" border="false">
+            <div title="welcome" style="padding: 20px; overflow: hidden;background:#eee;" id="home" >
+                <h1 style="text-align: center;">welcome to console management sys using jquery EasyUI</h1>
+            </div>
+        </div>
+    </div>
+    
+    <div data-options="region:'south',title:' ',split:false,collapsible:false" style="height:30px;text-align: center;">
+    </div>   
+</body>  
+
+</html>
